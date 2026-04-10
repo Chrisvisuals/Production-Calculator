@@ -57,7 +57,7 @@ const LINE_CONFIGS = {
         force_two_samples_at_20: false,
     },
     "tba19": {
-        displayName:             "TBA19",
+        displayName:             "TBA19 250ml",
         cases_per_pallet:        120,
         units_per_case:          24,
         unit_volume_l:           0.25,      // 250ml
