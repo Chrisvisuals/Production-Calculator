@@ -7,7 +7,7 @@
 
 // Tank capacities in litres — used when the user enters a percentage
 const TANK_CAPACITIES = {
-    silo:     30000,
+    silo:     37000,
     blending: 20000,
     uscm:     20000,
 };
