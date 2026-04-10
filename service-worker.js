@@ -1,10 +1,14 @@
 /* ============================================================
    service-worker.js
-   Caches all app files on first load so the app works
-   completely offline on subsequent visits.
+   Caches all app files for full offline support.
+   Cache name uses a build timestamp injected by Netlify at
+   deploy time — so every push automatically busts the old
+   cache without you needing to change anything manually.
 ============================================================ */
 
-const CACHE_NAME = 'pallet-calc-v1';
+// __BUILD_TIME__ is replaced with the actual deploy timestamp
+// by Netlify via netlify.toml on every push to GitHub.
+const CACHE_NAME = 'pallet-calc-__BUILD_TIME__';
 
 // All files that need to be cached for offline use
 const FILES_TO_CACHE = [
@@ -16,26 +20,28 @@ const FILES_TO_CACHE = [
     '/js/history.js',
     '/js/ui.js',
     '/manifest.json',
-    // Google Fonts — cached on first load so they work offline too
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap',
 ];
 
-// ── Install: cache all files when the service worker is first installed ──
+// ── Install: cache all files when the service worker first installs ──
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
     );
-    self.skipWaiting();  // Activate immediately without waiting for old SW to finish
+    self.skipWaiting();  // Activate immediately without waiting
 });
 
-// ── Activate: remove any old caches from previous versions ──
+// ── Activate: delete any old cache versions automatically ──
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(keys =>
             Promise.all(
                 keys
-                    .filter(key => key !== CACHE_NAME)  // Find old cache versions
-                    .map(key => caches.delete(key))      // Delete them
+                    .filter(key => key !== CACHE_NAME)  // Any cache that isn't the current version
+                    .map(key => {
+                        console.log('Deleting old cache:', key);
+                        return caches.delete(key);
+                    })
             )
         )
     );
@@ -46,7 +52,6 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request).then(cachedResponse => {
-            // Return cached version if available, otherwise fetch from network
             return cachedResponse || fetch(event.request);
         })
     );

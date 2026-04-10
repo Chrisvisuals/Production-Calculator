@@ -1,0 +1,11 @@
+# netlify.toml
+# Netlify build configuration.
+#
+# On every deploy, the build command replaces __BUILD_TIME__ in
+# service-worker.js with the actual Unix timestamp of that deploy.
+# This gives each deployment a unique cache name, so the service
+# worker automatically clears the old cache and fetches fresh files.
+
+[build]
+  command = "sed -i \"s/__BUILD_TIME__/$(date +%s)/g\" service-worker.js"
+  publish = "."
