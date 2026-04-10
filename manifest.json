@@ -1,0 +1,28 @@
+{
+    "name": "Pallet Production Calculator",
+    "short_name": "Pallet Calc",
+    "description": "Calculate pallets, production times and samples for each production line.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f1729",
+    "theme_color": "#0f1729",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
