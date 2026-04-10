@@ -42,7 +42,27 @@ function renderResultTiles(tiles) {
             <div class="result-unit">${t.unit}</div>
         </div>`).join('');
 
-    grid.innerHTML = totalTileHTML + otherTilesHTML;
+    // Append sticker tile if the sticker toggle is active
+    const showStickers = document.getElementById('toggle-stickers').checked;
+    let stickerHTML = '';
+    if (showStickers && lastCalculation) {
+        const cfg           = LINE_CONFIGS[document.getElementById('line-select').value];
+        const lpCase        = litersPerCase(cfg);
+        const fullCases     = lastCalculation.fullPallets * cfg.cases_per_pallet;
+        const partialCases  = lastCalculation.remainderLiters > 0
+            ? Math.ceil(lastCalculation.remainderLiters / lpCase)
+            : 0;
+        const totalStickers = fullCases + partialCases;
+
+        stickerHTML = `
+            <div class="result-tile result-tile-full" style="margin-top:1rem;border:2px solid hsl(var(--color-highlight)/0.3)">
+                <div class="result-tile-label">Stickers to Print</div>
+                <div class="result-number result-number-large">${totalStickers.toLocaleString()}</div>
+                <div class="result-unit">${fullCases} full pallet cases + ${partialCases} partial cases</div>
+            </div>`;
+    }
+
+    grid.innerHTML = totalTileHTML + otherTilesHTML + stickerHTML;
     lastResultTiles = tiles;
 
     resultsSection.classList.remove('hidden');
@@ -365,13 +385,21 @@ function onUnitTypeToggle() {
         `toggle-label ${isPercent ? 'text-active' : 'text-muted'}`;
 }
 
-/** Show/hide the A3CF split toggle when the selected line changes */
+/** Show/hide the A3CF split toggle and sticker toggle when the selected line changes */
 function onLineChange() {
-    const lineKey      = document.getElementById('line-select').value;
-    const splitWrapper = document.getElementById('split-toggle-wrapper');
-    const isA3cf       = lineKey === 'a3cf 250ml';
+    const lineKey        = document.getElementById('line-select').value;
+    const splitWrapper   = document.getElementById('split-toggle-wrapper');
+    const stickerWrapper = document.getElementById('sticker-toggle-wrapper');
+
+    // Split toggle: only for A3CF 250ml
+    const isA3cf = lineKey === 'a3cf 250ml';
     splitWrapper.classList.toggle('hidden', !isA3cf);
     if (!isA3cf) document.getElementById('toggle-split').checked = false;
+
+    // Sticker toggle: only for A3 Speed lines
+    const isA3Speed = lineKey === 'a3 speed (juice)' || lineKey === 'a3 speed (milk)';
+    stickerWrapper.classList.toggle('hidden', !isA3Speed);
+    if (!isA3Speed) document.getElementById('toggle-stickers').checked = false;
 }
 
 /** Apply and save the light/dark theme */
@@ -432,6 +460,8 @@ window.onload = function () {
     document.getElementById('line-select')
             .addEventListener('change', onLineChange);
     document.getElementById('toggle-split')
+            .addEventListener('change', runEvaluation);
+    document.getElementById('toggle-stickers')
             .addEventListener('change', runEvaluation);
     document.getElementById('toggle-unit-type')
             .addEventListener('change', onUnitTypeToggle);
