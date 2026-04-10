@@ -66,7 +66,7 @@
         <div id="tank-selector" class="col-span-2 hidden">
             <label class="field-label">Source Tank</label>
             <div class="tank-btn-row">
-                <button data-tank="silo"     class="tank-btn">SILO (37,000 L)</button>
+                <button data-tank="silo"     class="tank-btn">SILO (30,000 L)</button>
                 <button data-tank="blending" class="tank-btn">BLENDING (20,000 L)</button>
                 <button data-tank="uscm"     class="tank-btn">USCM (20,000 L)</button>
             </div>
@@ -93,6 +93,18 @@
                     <div class="split-toggle-text">
                         <p>Split batch with TBA19</p>
                         <p>Divides the batch so both lines finish at the same time</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticker toggle — only shown when A3 Speed (Juice or Milk) is selected -->
+            <div id="sticker-toggle-wrapper" class="hidden">
+                <div class="split-toggle-panel">
+                    <input type="checkbox" id="toggle-stickers" class="toggle-checkbox">
+                    <label for="toggle-stickers" class="toggle-pill"></label>
+                    <div class="split-toggle-text">
+                        <p>Show stickers needed</p>
+                        <p>1 sticker per case — includes partial pallet cases</p>
                     </div>
                 </div>
             </div>
