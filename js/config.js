@@ -7,9 +7,10 @@
 
 // Tank capacities in litres — used when the user enters a percentage
 const TANK_CAPACITIES = {
-    silo:     37650,
-    blending: 20000,
-    uscm:     20000,
+    juicesilo:     37650,
+    milksilo:      30000,
+    blending:      20000,
+    uscm:          20000,
 };
 
 // Production line configurations
