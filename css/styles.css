@@ -593,8 +593,32 @@ footer {
     padding-top: 1rem;
     border-top: 1px solid var(--color-border);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 1rem;
+}
+
+/* Branding text below the theme toggle */
+.footer-branding {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+.footer-made-by {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    letter-spacing: 0.02em;
+}
+.footer-made-by strong {
+    color: var(--color-highlight);
+    font-weight: 700;
+}
+.footer-powered {
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    opacity: 0.7;
+    letter-spacing: 0.03em;
 }
 
 .theme-toggle-pill {
