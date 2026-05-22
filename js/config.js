@@ -26,7 +26,7 @@ const LINE_CONFIGS = {
         cases_per_pallet:        60,
         units_per_case:          12,
         unit_volume_l:           1.0,       // 1000ml
-        time_per_pallet:         11,
+        time_per_pallet:         7,
         fixed_samples:           null,
         force_two_samples_at_20: true,
     },
