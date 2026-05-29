@@ -10,7 +10,7 @@ const TANK_CAPACITIES = {
     juicesilo:     37650,
     milksilo:      30000,
     blending:      20000,
-    uscm:          20000,
+    uscm:          18330,
 };
 
 // Production line configurations
