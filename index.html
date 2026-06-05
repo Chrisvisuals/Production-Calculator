@@ -117,15 +117,18 @@
 
 
     <!-- ============================================================
+         TAB NAV — always visible, outside results-section
+    ============================================================ -->
+    <div class="tab-nav">
+        <button id="tab-summary" data-tab="summary" class="tab-btn active">Production Summary</button>
+        <button id="tab-history" data-tab="history" class="tab-btn tab-btn-history">Batch History</button>
+    </div>
+
+
+    <!-- ============================================================
          RESULTS SECTION  (hidden until a calculation runs)
     ============================================================ -->
     <section id="results-section" class="hidden">
-
-        <!-- Tab navigation -->
-        <div class="tab-nav">
-            <button id="tab-summary" data-tab="summary" class="tab-btn active">Production Summary</button>
-            <button id="tab-history" data-tab="history" class="tab-btn tab-btn-history">Batch History</button>
-        </div>
 
         <!-- Error banner (shown on invalid input) -->
         <div id="error-banner" class="hidden"></div>
@@ -217,7 +220,7 @@
         <label for="toggle-theme" class="theme-toggle-pill"></label>
 
         <div class="footer-branding">
-            <p class="footer-made-by">Made for <strong>MIDL</strong></strong></p>
+            <p class="footer-made-by">Made for <strong>MIDL</strong></p>
             <p class="footer-powered">Powered by GitHub, 2026 &copy;</p>
         </div>
     </footer>
