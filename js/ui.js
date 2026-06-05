@@ -151,7 +151,8 @@ function runEvaluation() {
     );
 
     if (inputIsInvalid) {
-        resultsSection.classList.add('hidden');
+        // Hide summary content but keep results-section visible (history tab stays accessible)
+        document.getElementById('tab-content-summary').classList.add('hidden');
         if (rawInput !== '') {
             errorBanner.textContent = 'Please enter a valid amount (0–100 for %, positive number for Litres).';
             errorBanner.classList.remove('hidden');
@@ -358,6 +359,10 @@ function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(panel => {
         panel.classList.toggle('hidden', panel.id !== `tab-content-${tabName}`);
     });
+
+    // Always keep results-section visible when switching tabs
+    document.getElementById('results-section').classList.remove('hidden');
+
     if (tabName === 'history') renderHistory();
 }
 
@@ -493,7 +498,10 @@ window.onload = function () {
     document.getElementById('toggle-theme').checked = (savedTheme === 'dark' || savedTheme === null);
     onThemeToggle();
 
+    // Always show results-section on load so History tab is accessible immediately
+    document.getElementById('results-section').classList.remove('hidden');
+
     // Initial render
-    runEvaluation();
     renderHistory();
+    runEvaluation();
 };
